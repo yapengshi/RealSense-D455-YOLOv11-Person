@@ -70,11 +70,29 @@ def main(model_path, bg_thresh, margin_ratio, sample_step):
     :param margin_ratio: 边框扩展比例
     :param sample_step: 3D估计采样步长
     """
+    # First check if any RealSense devices are connected
+    ctx = rs.context()
+    devices = ctx.query_devices()
+    if len(devices) == 0:
+        print("[ERROR] No RealSense devices found. Please connect a RealSense camera.")
+        print("[INFO] Connected USB devices can be checked with: lsusb")
+        return
+
     pipeline = rs.pipeline()  # 创建RealSense管道
     config = rs.config()  # 创建配置对象
     config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)  # 启用彩色流
     config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)  # 启用深度流
-    profile = pipeline.start(config)  # 启动管道并获取配置文件
+    
+    try:
+        profile = pipeline.start(config)  # 启动管道并获取配置文件
+    except RuntimeError as e:
+        print("[ERROR] Failed to start pipeline:", str(e))
+        print("[TROUBLESHOOTING] Possible solutions:")
+        print("1. Ensure camera is properly connected via USB 3.0")
+        print("2. Check if RealSense drivers are installed")
+        print("3. Verify user has permission to access the device")
+        print("4. Try a different USB port")
+        return
     align = rs.align(rs.stream.color)  # 创建对齐对象，用于对齐深度帧和彩色帧
 
     depth_sensor = profile.get_device().first_depth_sensor()  # 获取深度传感器
