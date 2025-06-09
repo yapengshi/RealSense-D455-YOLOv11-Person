@@ -125,7 +125,7 @@ def main(model_path, bg_thresh, margin_ratio, sample_step):
             depth_bg = remove_background(depth_img, depth_scale, bg_thresh)
 
             # YOLO检测
-            dets = yolo.detect_person(color_img, conf_thres=0.75)
+            dets = yolo.detect_person(color_img, conf_thres=0.75) # 可调整置信度阈值
 
             real_dets = []
             for (cls_id, conf, (x1, y1, x2, y2)) in dets:
@@ -133,7 +133,7 @@ def main(model_path, bg_thresh, margin_ratio, sample_step):
                     continue  # 如果检测到的不是人，则继续循环
                 w_box = (x2 - x1)  # 计算边框宽度
                 h_box = (y2 - y1)  # 计算边框高度
-                if w_box < 50 or h_box < 50:
+                if w_box < 50 or h_box < 50:  # 人物远近判断，小于50像素则认为是背景,可调整
                     continue  # 如果边框太小，则继续循环
                 mx = int(w_box * margin_ratio)  # 计算边框扩展宽度
                 my = int(h_box * margin_ratio)  # 计算边框扩展高度

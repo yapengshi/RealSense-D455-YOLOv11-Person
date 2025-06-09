@@ -45,3 +45,10 @@ yolo predict task=detect model=yolo11n.pt imgsz=640 source=videos/街道.mp4    
 python main.py --model_path model/yolo11n.pt --bg_thresh 3.0 --margin_ratio 0.1 --sample_step 3    # 原始pytorch模型
 # python main.py --model_path model/yolo11n.engine --bg_thresh 3.0 --margin_ratio 0.1 --sample_step 3 # engine加速模型
 ``` 
+
+## ros2 版本定制化输出
+```bash
+colcon build --packages-select person_detector_msgs
+source install/setup.bash
+python ros2_main.py --model_path model/yolo11n.pt # ros2版本
+```
