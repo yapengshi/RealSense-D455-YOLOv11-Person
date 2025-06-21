@@ -155,8 +155,6 @@ def main(args=None):
 ```
 
 
-
-
 ## Person_Detection 使用
 ```bash
 conda activate person_env
@@ -167,7 +165,8 @@ ros2 run person_detector person_detector_node
 ```
 
 Note:
-修`install/person_detector/lib/person_detector/person_detector_node`首行：
+1. 修改`install/person_detector/lib/person_detector/person_detector_node`首行：
 ```
 #!/home/booster/Workspace/miniconda3/envs/person_env/bin/python # 修改为conda环境的python路径`which python`
 ```
+2. 在主目录下创建`models`文件夹，并将`yolo11n.engine`文件放入其中更名为`person_detector.engine`。
