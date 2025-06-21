@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>person_detector</name>
+  <version>1.0.0</version>
+  <description>Person detector node with code protection.</description>
+  <maintainer email="your_email@example.com">Your Name</maintainer>
+  <license>Proprietary</license> <!-- 使用专有许可证 -->
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <!-- 添加 Cython 作为构建依赖 -->
+  <build_depend>cython</build_depend>
+
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>person_detector_msgs</depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
